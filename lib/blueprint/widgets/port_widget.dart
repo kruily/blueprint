@@ -1,4 +1,4 @@
-import 'package:blueprint/core/models/position.dart';
+import 'package:blueprint/blueprint/models/position.dart';
 import 'package:flutter/material.dart';
 import '../models/node.dart';
 

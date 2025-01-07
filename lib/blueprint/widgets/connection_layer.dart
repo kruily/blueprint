@@ -1,4 +1,4 @@
-import 'package:blueprint/features/blueprint/controllers/connection_layer_controller.dart';
+import 'package:blueprint/blueprint/controllers/connection_layer_controller.dart';
 import 'package:flutter/material.dart';
 import '../models/node.dart';
 import '../models/connection.dart';

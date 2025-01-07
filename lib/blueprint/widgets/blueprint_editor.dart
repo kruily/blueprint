@@ -1,12 +1,12 @@
-import 'package:blueprint/features/blueprint/controllers/connection_layer_controller.dart';
-import 'package:blueprint/features/blueprint/models/connection.dart';
+import 'package:blueprint/blueprint/controllers/connection_layer_controller.dart';
+import 'package:blueprint/blueprint/models/connection.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../controllers/canvas_controller.dart';
 import 'grid_painter.dart';
-import '../../../core/models/position.dart';
+import '../models/position.dart';
 import '../models/node.dart';
-import '../widgets/node_widget.dart';
+import 'node_widget.dart';
 import '../services/node_registry.dart';
 import '../models/node_style.dart';
 import 'connection_layer.dart';
@@ -50,6 +50,15 @@ class _BlueprintEditorState extends State<BlueprintEditor> {
   void initState() {
     super.initState();
     nodes = [
+      NodeRegistry().getNodeType('text')?.createNode(
+        id: 'text_node',
+        position: const Position(100, 100),
+      ) ?? NodeData(
+        id: 'text_node',
+        type: 'text',
+        title: '文本节点',
+        position: const Position(100, 100),
+      ),
       NodeRegistry().getNodeType('math.add')?.createNode(
         id: '1',
         position: const Position(100, 100),

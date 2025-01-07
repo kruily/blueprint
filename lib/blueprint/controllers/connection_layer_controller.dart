@@ -1,5 +1,5 @@
-import 'package:blueprint/features/blueprint/models/connection.dart';
-import 'package:blueprint/features/blueprint/models/node.dart';
+import 'package:blueprint/blueprint/models/connection.dart';
+import 'package:blueprint/blueprint/models/node.dart';
 import 'package:flutter/material.dart';
 
 /// 连接管理控制器

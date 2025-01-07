@@ -1,8 +1,8 @@
 import 'package:blueprint/shared/themes/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'features/blueprint/widgets/blueprint_editor.dart';
-import 'features/blueprint/services/node_registry.dart';
-import 'features/blueprint/node_types/math_node_type.dart';
+import 'blueprint/widgets/blueprint_editor.dart';
+import 'blueprint/services/node_registry.dart';
+import 'blueprint/node_types/math_node_type.dart';
 
 void main() {
   // 注册节点类型   

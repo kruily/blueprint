@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/models/position.dart';
+import 'position.dart';
 
 /// 节点连接点类型
 enum PortType {

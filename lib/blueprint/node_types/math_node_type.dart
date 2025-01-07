@@ -1,7 +1,7 @@
-import 'package:blueprint/core/models/position.dart';
+import 'package:blueprint/blueprint/models/node.dart';
+import 'package:blueprint/blueprint/models/node_type.dart';
+import 'package:blueprint/blueprint/models/position.dart';
 import 'package:flutter/material.dart';
-import '../models/node_type.dart';
-import '../models/node.dart';
 
 /// 加法节点类型
 class MathNodeType extends NodeType {

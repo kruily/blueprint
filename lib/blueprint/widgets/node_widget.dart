@@ -1,8 +1,8 @@
-import 'package:blueprint/core/models/position.dart';
+import 'package:blueprint/blueprint/models/position.dart';
 import 'package:flutter/material.dart';
 import '../models/node.dart';
 import '../models/node_style.dart';
-import '../widgets/port_widget.dart';
+import 'port_widget.dart';
 
 /// 节点组件
 class NodeWidget extends StatefulWidget {

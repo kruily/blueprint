@@ -44,6 +44,6 @@ app.*.symbols
 
 # Obfuscation related
 app.*.map.json
-
+.cursorrules
 # Android Studio will place build artifacts here
 
