@@ -1,50 +1,33 @@
-import 'package:blueprint/blueprint/models/position.dart';
+import 'package:blueprint/blueprint/models/node_type.dart';
+import 'package:blueprint/blueprint/services/node_registry.dart';
 import 'package:flutter/material.dart';
 import '../models/node.dart';
-import '../models/node_style.dart';
-import 'port_widget.dart';
 
 /// 节点组件
 class NodeWidget extends StatefulWidget {
   /// 节点数据
   final NodeData data;
-  /// 节点样式
-  final NodeStyle style;
-  /// 选中回调
-  final VoidCallback? onSelected;
+  
   /// 是否选中
   final bool isSelected;
+  
+  /// 选中回调
+  final Function(NodeWidget node)? onSelected;
+
   /// 拖拽更新回调
-  final Function(Offset)? onDragUpdate;
+  final Function(NodeWidget node, Offset offset)? onDragUpdate;
+
   /// 拖拽结束回调
-  final VoidCallback? onDragEnd;
-  /// 端口拖拽开始回调
-  final Function(NodeData, NodePort, Offset)? onPortDragStart;
-  /// 端口拖拽更新回调
-  final Function(Offset)? onPortDragUpdate;
-  /// 端口拖拽结束回调
-  final Function()? onPortDragEnd;
-  /// 缩放比例
-  final double scale;
-  /// 偏移量
-  final Offset offset;
-  /// 节点位置
-  final Position position;
+  final Function(NodeWidget node)? onDragEnd;
+
 
   const NodeWidget({
     super.key,
     required this.data,
-    this.style = const NodeStyle(),
     this.onSelected,
     this.isSelected = false,
     this.onDragUpdate,
     this.onDragEnd,
-    this.onPortDragStart,
-    this.onPortDragUpdate,
-    this.onPortDragEnd,
-    this.scale = 1.0,
-    this.offset = Offset.zero,
-    required this.position,
   });
 
   @override
@@ -53,98 +36,50 @@ class NodeWidget extends StatefulWidget {
 
 /// 节点组件状态
 class _NodeWidgetState extends State<NodeWidget> {
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: widget.onSelected,
-      onPanUpdate: (details) {
-        widget.onDragUpdate?.call(details.delta);
-      },
-      onPanEnd: (_) => widget.onDragEnd?.call(),
-      child: Container(
-        width: widget.style.width,
-        height: widget.style.height,
-        decoration: BoxDecoration(
-          color: widget.style.backgroundColor,
-          borderRadius: BorderRadius.circular(widget.style.borderRadius),
-          border: Border.all(
-            color: widget.isSelected ? Colors.blue : widget.style.borderColor,
-            width: widget.style.borderWidth,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // 标题栏
-            Container(
-              padding: widget.style.padding,
+    NodeType? nodeType = NodeRegistry().getNodeType(widget.data.type);
+    return MouseRegion(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          GestureDetector(
+            onTap: () => widget.onSelected?.call(widget),
+            onPanUpdate: (details) {
+              widget.onDragUpdate?.call(widget, details.delta);
+            },
+            onPanEnd: (_) => widget.onDragEnd?.call(widget),
+            child: Container(
+              width: nodeType?.style.width,
+              height: nodeType?.style.height,
               decoration: BoxDecoration(
-                color: widget.style.borderColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(widget.style.borderRadius),
-                  topRight: Radius.circular(widget.style.borderRadius),
+                color: nodeType?.style.backgroundColor,
+                borderRadius: BorderRadius.circular(nodeType?.style.borderRadius ?? 4),
+                border: Border.all(
+                  color: widget.isSelected
+                      ? Colors.blue
+                      : nodeType?.style.borderColor ?? Colors.transparent,
+                  width: nodeType?.style.borderWidth ?? 1,
                 ),
               ),
-              child: Text(
-                widget.data.title,
-                style: widget.style.titleStyle,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  nodeType?.buildTitle(context, widget.data, widget) ?? const SizedBox(),
+                  Expanded(
+                    child: Padding(
+                      padding: nodeType?.style.padding ?? EdgeInsets.zero,
+                      child: nodeType?.buildContent(context, widget.data, widget) ?? 
+                          const SizedBox(),
+                    ),
+                  ),
+                ],
               ),
             ),
-            // 内容区域
-            Expanded(
-              child: Padding(
-                padding: widget.style.padding,
-                child: Row(
-                  children: [
-                    // 输入端口列表
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: widget.data.inputs.map((port) => 
-                        _buildPort(port, true),
-                      ).toList(),
-                    ),
-                    // 中间内容
-                    Expanded(
-                      child: Center(
-                        child: Text('+', style: TextStyle(fontSize: 20)),
-                      ),
-                    ),
-                    // 输出端口列表
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: widget.data.outputs.map((port) => 
-                        _buildPort(port, false),
-                      ).toList(),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
-
-  /// 构建端口
-  Widget _buildPort(NodePort port, bool isInput) {
-    return PortWidget(
-      port: port,
-      isInput: isInput,
-      textStyle: widget.style.titleStyle.copyWith(fontSize: 11),
-      scale: widget.scale,
-      offset: widget.offset,
-      position: widget.position,
-      onPortDragStart: (port, position) {
-        widget.onPortDragStart?.call(widget.data, port, position);
-      },
-      onPortDragUpdate: widget.onPortDragUpdate,
-      onPortDragEnd: widget.onPortDragEnd,
-      onPortEnter: (port) {
-        print('Port entered: ${port.id} at position: ${port.position}');
-      },
-    );
-  }
-} 
+}

@@ -1,4 +1,6 @@
+import 'package:blueprint/blueprint/models/node_style.dart';
 import 'package:blueprint/blueprint/models/position.dart';
+import 'package:blueprint/blueprint/widgets/node_widget.dart';
 import 'package:flutter/material.dart';
 import 'node.dart';
 
@@ -15,23 +17,34 @@ abstract class NodeType {
   
   /// 节点类型图标
   IconData? get icon;
+
+  /// 节点样式
+  NodeStyle get style;
   
   /// 创建节点实例
   NodeData createNode({
     required String id,
     required Position position,
   });
-  
-  /// 自定义节点内容构建器
-  Widget? buildCustomContent(BuildContext context, NodeData node);
-  
-  /// 验证节点输入
-  bool validateInputs(NodeData node, Map<String, dynamic> inputs) {
-    return true;
+
+  /// 构建标题栏
+  Widget? buildTitle(BuildContext context, NodeData node, NodeWidget widget) {
+    return Container(
+      padding: style.padding,
+      decoration: BoxDecoration(
+        color: style.borderColor,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(style.borderRadius),
+          topRight: Radius.circular(style.borderRadius),
+        ),
+      ),
+      child: Text(
+        node.title,
+        style: style.titleStyle,
+      ),
+    );
   }
   
-  /// 处理节点逻辑
-  Map<String, dynamic>? process(NodeData node, Map<String, dynamic> inputs) {
-    return null;
-  }
+  /// 构建节点内容
+  Widget? buildContent(BuildContext context, NodeData node, NodeWidget widget);
 } 

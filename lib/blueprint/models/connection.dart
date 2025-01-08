@@ -1,4 +1,3 @@
-
 /// 连接线数据模型
 class Connection {
   /// 连接ID
@@ -6,22 +5,22 @@ class Connection {
   /// 源节点ID
   final String sourceNodeId;
   /// 源端口ID
-  final String sourcePortId;
+  final String sourcePointId;
   /// 目标节点ID
   final String targetNodeId;
   /// 目标端口ID
-  final String targetPortId;
+  final String targetPointId;
 
   const Connection({
     required this.id,
     required this.sourceNodeId,
-    required this.sourcePortId,
+    required this.sourcePointId,
     required this.targetNodeId,
-    required this.targetPortId,
+    required this.targetPointId,
   });
 
   @override
   String toString() {
-    return 'Connection{id: $id, source: $sourceNodeId:$sourcePortId -> target: $targetNodeId:$targetPortId}';
+    return 'Connection{id: $id, source: $sourceNodeId:$sourcePointId -> target: $targetNodeId:$targetPointId}';
   }
 } 
