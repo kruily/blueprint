@@ -1,3 +1,4 @@
+import 'package:blueprint/blueprint/node_types/text_node_type.dart';
 import 'package:blueprint/shared/themes/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'blueprint/widgets/blueprint_editor.dart';
@@ -7,6 +8,7 @@ import 'blueprint/node_types/math_node_type.dart';
 void main() {
   // 注册节点类型   
   NodeRegistry().registerNodeType(MathNodeType());
+  NodeRegistry().registerNodeType(TextNodeType());
   
   runApp(const BlueprintEditorApp());
 }
