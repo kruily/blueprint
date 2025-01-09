@@ -1,8 +1,8 @@
 
+import 'package:blueprint/blueprint/models/area.dart';
 import 'package:blueprint/blueprint/models/node.dart';
 import 'package:blueprint/blueprint/models/node_style.dart';
 import 'package:blueprint/blueprint/models/node_type.dart';
-import 'package:blueprint/blueprint/models/position.dart';
 import 'package:blueprint/blueprint/widgets/node_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +44,7 @@ class TextNodeType extends NodeType {
       id: id,
       type: typeId,
       title: name,
-      position: position,
+      area: Area(position: position, width: 180, height: 100),
     );
   }
 }

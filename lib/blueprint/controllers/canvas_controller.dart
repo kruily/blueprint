@@ -1,5 +1,5 @@
+import 'package:blueprint/blueprint/models/area.dart';
 import 'package:flutter/material.dart';
-import '../models/position.dart';
 
 /// 画布控制器，管理缩放和平移
 class CanvasController extends ChangeNotifier {

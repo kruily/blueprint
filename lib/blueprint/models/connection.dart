@@ -5,22 +5,24 @@ class Connection {
   /// 源节点ID
   final String sourceNodeId;
   /// 源端口ID
-  final String sourcePointId;
+  final String sourcePortId;
   /// 目标节点ID
   final String targetNodeId;
   /// 目标端口ID
-  final String targetPointId;
+  final String targetPortId;
+  /// 是否选中
+  bool isSelected = false;
 
-  const Connection({
+  Connection({
     required this.id,
     required this.sourceNodeId,
-    required this.sourcePointId,
+    required this.sourcePortId,
     required this.targetNodeId,
-    required this.targetPointId,
+    required this.targetPortId,
   });
 
   @override
   String toString() {
-    return 'Connection{id: $id, source: $sourceNodeId:$sourcePointId -> target: $targetNodeId:$targetPointId}';
+    return 'Connection{id: $id, source: $sourceNodeId:$sourcePortId -> target: $targetNodeId:$targetPortId}';
   }
 } 

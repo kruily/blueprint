@@ -19,12 +19,12 @@ migrate_working_dir/
 .idea/
 
 # Operating System related
-.macos/*
-.linux/*    
-.windows/*
-.web/*
-.ios/*
-.android/*
+/macos
+/linux
+/windows
+/web
+/ios
+/android
 
 
 # The .vscode folder contains launch configuration and tasks you configure in
