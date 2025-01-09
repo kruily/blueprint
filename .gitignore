@@ -18,11 +18,17 @@ migrate_working_dir/
 *.iws
 .idea/
 
-android/*
-ios/*
-linux/*
-macos/*
-windows/*
+# Operating System related
+.macos/*
+.linux/*    
+.windows/*
+.web/*
+.ios/*
+.android/*
+
+
+
+
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
